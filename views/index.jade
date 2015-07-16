@@ -1,5 +1,9 @@
 extends layout
 
+block head
+  script(type='text/javascript' src='phaser/build/phaser.js').
+  script(type='text/javascript' src='javascripts/game.js').
+
 block content
   h1= title
   p Welcome to #{title}

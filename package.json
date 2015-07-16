@@ -15,5 +15,11 @@
     "serve-favicon": "~2.3.0",
     "stylus": "0.42.3",
     "bower": "~1.4.1"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-bower": "0.0.10",
+    "gulp-main-bower-files": "^1.2.0",
+    "main-bower-files": "^2.9.0"
   }
 }
