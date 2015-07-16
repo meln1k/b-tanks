@@ -36,6 +36,16 @@ var EnemyTank = function (index, game, player, bullets) {
 
 };
 
+var ConcreteWall = function (index, game, x, y) {
+
+    this.game = game;
+
+    this.wall = game.add.sprite(x, y, 'concrete');
+
+    game.physics.enable(this.wall, Phaser.Physics.ARCADE);
+    this.wall.body.immovable = true;
+};
+
 EnemyTank.prototype.damage = function() {
 
     this.health -= 1;
@@ -90,6 +100,8 @@ function preload () {
     game.load.image('logo', 'assets/games/tanks/logo.png');
     game.load.image('bullet', 'assets/games/tanks/bullet.png');
     game.load.image('earth', 'assets/games/tanks/scorched_earth.png');
+    game.load.image('concrete', 'assets/games/tanks/concrete.png');
+    game.load.image('brick', 'assets/games/tanks/brick.png');
     game.load.spritesheet('kaboom', 'assets/games/tanks/explosion.png', 64, 64, 23);
 
 }
@@ -99,6 +111,12 @@ var land;
 var shadow;
 var tank;
 var turret;
+
+var concrete;
+var brick;
+
+var walls;
+var wallsTotal = 0;
 
 var enemies;
 var enemyBullets;
@@ -123,6 +141,7 @@ function create () {
     //  Our tiled scrolling background
     land = game.add.tileSprite(0, 0, 800, 600, 'earth');
     land.fixedToCamera = true;
+
 
     //  The base of our tank
     tank = game.add.sprite(0, 0, 'tank', 'tank1');
@@ -149,6 +168,19 @@ function create () {
     enemyBullets.setAll('anchor.y', 0.5);
     enemyBullets.setAll('outOfBoundsKill', true);
     enemyBullets.setAll('checkWorldBounds', true);
+
+    //  Create some walls
+    walls = [];
+
+    wallsTotal = 4;
+    var x;
+    var y;
+    for (var i = 0; i < wallsTotal; i++)
+    {
+      x = 64*i;
+      y = 64*2;
+      walls.push(new ConcreteWall(i, game, x, y));
+    }
 
     //  Create some baddies to waste :)
     enemies = [];
@@ -210,10 +242,22 @@ function removeLogo () {
 
 function update () {
 
+    for (var i = 0; i < walls.length; i++)
+    {
+      game.physics.arcade.collide(tank, walls[i].wall);
+      game.physics.arcade.collide(bullets, walls[i].wall, bulletHitWall, null, this);
+      game.physics.arcade.overlap(enemyBullets, walls[i].wall, bulletHitWall, null, this);
+      for (var j = 0; j < enemies.length; j++)
+      {
+          if (enemies[j].alive)
+          {
+              game.physics.arcade.collide(walls[i].wall, enemies[j].tank);
+          }
+      }
+    }
+
     game.physics.arcade.overlap(enemyBullets, tank, bulletHitPlayer, null, this);
-
     enemiesAlive = 0;
-
     for (var i = 0; i < enemies.length; i++)
     {
         if (enemies[i].alive)
@@ -274,9 +318,20 @@ function update () {
 }
 
 function bulletHitPlayer (tank, bullet) {
-
     bullet.kill();
+}
 
+function explode(object) {
+    {
+        var explosionAnimation = explosions.getFirstExists(false);
+        explosionAnimation.reset(object.x, object.y);
+        explosionAnimation.play('kaboom', 30, false, true);
+    }
+    object.kill();
+}
+
+function bulletHitWall (wall, bullet) {
+    explode(bullet);
 }
 
 function bulletHitEnemy (tank, bullet) {
@@ -315,6 +370,3 @@ function render () {
     game.debug.text('Enemies: ' + enemiesAlive + ' / ' + enemiesTotal, 32, 32);
 
 }
-
-
-
