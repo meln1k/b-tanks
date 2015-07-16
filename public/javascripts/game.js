@@ -1,6 +1,7 @@
 /**
  * Created by last-g on 16.07.15.
  */
+'use strict';
 
 EnemyTank = function (index, game, player, bullets) {
 
