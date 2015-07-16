@@ -5,7 +5,7 @@
   "authors": [
     "Sergey Azovskov <last-g@yandex-team.ru>"
   ],
-  "main": "index.js",
+  "main": "app.js",
   "moduleType": [
     "es6",
     "globals",
