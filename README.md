@@ -5,6 +5,6 @@ Run
 ---
 
 ```(bash)
-npm install
+npm install --dev
 npm start
 ```
