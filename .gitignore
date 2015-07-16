@@ -42,6 +42,3 @@ dist/
 
 ## Directory-based project format:
 .idea/
-
-# ignore self-appearing CSS file
-public/stylesheets/style.css
