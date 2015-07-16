@@ -4,7 +4,6 @@
 
 'use strict';
 
-
 var servers = null;
 
 RTCPeerConnection

@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -34,6 +35,7 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+
 // error handlers
 
 // development error handler
@@ -56,6 +58,25 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   });
+});
+
+
+var io = app.io = require('socket.io')();
+var rooms = ['1', '2', '3'];
+
+io.on('connection', function(socket){
+  "use strict";
+
+  console.log("Got connection ", socket);
+
+  socket.emit('rooms_list', rooms);
+
+  socket.on('join', function(room_name) {
+    socket.join(room_name, function() {
+      socket.emit('joined', room_name);
+    })
+  })
+
 });
 
 

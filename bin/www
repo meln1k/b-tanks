@@ -36,6 +36,9 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+
+app.io.attach(server);
+
 module.exports.app = exports.app = server;
 
 
