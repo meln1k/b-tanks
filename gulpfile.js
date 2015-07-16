@@ -16,7 +16,7 @@ gulp.task('bower-compile', ['bower-install'], function() {
     bower();
     return gulp.src('./bower.json')
         .pipe(mainBowerFiles())
-        .pipe(gulp.dest('./libs'))
+        .pipe(gulp.dest('./public/libs'))
 });
 
 
