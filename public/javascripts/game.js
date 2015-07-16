@@ -178,7 +178,7 @@ function create () {
     for (var i = 0; i < wallsTotal; i++)
     {
       x = 64*i;
-      y = 64;
+      y = 64*2;
       walls.push(new ConcreteWall(i, game, x, y));
     }
 
