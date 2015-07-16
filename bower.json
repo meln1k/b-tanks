@@ -1,0 +1,22 @@
+{
+  "name": "b-tanks",
+  "version": "0.0.0",
+  "homepage": "https://github.com/meln1k/b-tanks",
+  "authors": [
+    "Sergey Azovskov <last-g@yandex-team.ru>"
+  ],
+  "main": "index.js",
+  "moduleType": [
+    "es6",
+    "globals",
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
