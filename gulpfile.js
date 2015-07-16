@@ -6,6 +6,7 @@
 var gulp = require('gulp');
 var bower = require('gulp-bower');
 var mainBowerFiles = require('gulp-main-bower-files');
+var server = require('gulp-express');
 
 gulp.task('bower-install', function() {
 
@@ -20,6 +21,16 @@ gulp.task('bower-compile', ['bower-install'], function() {
 });
 
 
-gulp.task('default', ['bower-compile'], function() {
+gulp.task('server', ['bower-compile'], function () {
+    // Start the server at the beginning of the task
+    server.run(['bin/www']);
+});
+
+gulp.task('direct-server', ['bower-compile'], function() {
     app = require('./bin/www');
+});
+
+
+gulp.task('default', ['server'], function() {
+
 });
