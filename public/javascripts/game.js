@@ -220,11 +220,6 @@ function create () {
     tank.bringToTop();
     turret.bringToTop();
 
-    logo = game.add.sprite(0, 200, 'logo');
-    logo.fixedToCamera = true;
-
-    game.input.onDown.add(removeLogo, this);
-
     game.camera.follow(tank);
     game.camera.deadzone = new Phaser.Rectangle(150, 150, 500, 300);
     game.camera.focusOnXY(0, 0);
@@ -233,12 +228,6 @@ function create () {
 
 }
 
-function removeLogo () {
-
-    game.input.onDown.remove(removeLogo, this);
-    logo.kill();
-
-}
 
 function update () {
 
