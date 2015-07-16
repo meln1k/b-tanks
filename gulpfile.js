@@ -14,7 +14,6 @@ gulp.task('bower-install', function() {
 });
 
 gulp.task('bower-compile', ['bower-install'], function() {
-    bower();
     return gulp.src('./bower.json')
         .pipe(mainBowerFiles())
         .pipe(gulp.dest('./public/libs'))
@@ -23,7 +22,7 @@ gulp.task('bower-compile', ['bower-install'], function() {
 
 gulp.task('server', ['bower-compile'], function () {
     // Start the server at the beginning of the task
-    server.run(['bin/www']);
+    return server.run(['bin/www']);
 });
 
 gulp.task('direct-server', ['bower-compile'], function() {
