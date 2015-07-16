@@ -3,7 +3,7 @@
  */
 'use strict';
 
-EnemyTank = function (index, game, player, bullets) {
+var EnemyTank = function (index, game, player, bullets) {
 
     var x = game.world.randomX;
     var y = game.world.randomY;
